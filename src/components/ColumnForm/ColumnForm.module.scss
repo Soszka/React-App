@@ -1,0 +1,15 @@
+@import '../../styles/settings.scss';
+
+.column {
+    text-align: center;
+    padding: 10px;
+}
+
+@media (max-width: 767px) {
+    
+    .column {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+} 

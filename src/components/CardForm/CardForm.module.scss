@@ -1,0 +1,15 @@
+@import '../../styles/settings.scss';
+
+.card {
+    text-align: center;
+    padding: 10px;
+}
+
+@media (max-width: 767px) {
+    
+    .card {
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+    }
+} 
