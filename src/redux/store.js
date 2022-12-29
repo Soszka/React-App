@@ -1,28 +1,44 @@
 import { createStore } from 'redux';
 import initialState from './initialState';
-import shortid from 'shortid'; 
 import strContains from '../utils/strContains';
 
-//selectors
-export const getFilteredCards = ({ cards, searchString }, columnId) => cards
-  .filter(card => card.columnId === columnId && strContains(card.title, searchString));
 
+export const filteredCards = (cards, columnId, search) => {
+  if(search) {
+    return cards.filter(card => card.columnId === columnId && strContains(card.title, search))
+  } else {
+    return cards.filter(card => card.columnId === columnId)
+  }
+};
 export const getAllColumns = () => {
-  return (initialState.columns);
+  return initialState.columns;
+};
+export const getAllLists = () => {
+  return initialState.lists;
+};
+export const getColumnsByList = (columns, listId) => {
+  return columns.filter( column => listId === column.listId );
+};
+export const getListById = (lists, listId) => {
+  return lists.find( list => list.id === listId );
 };
 
+
 export const addColumn = payload => ({ type: 'ADD_COLUMN', payload });
-export const addCard = payload => ({ type: 'ADD_CARD', payload });
-export const searchTitle = payload => ({ type: 'UPDATE_SEARCHSTRING', payload })
+export const addCard = payload => ({ type: 'ADD_CARD', payload});
+export const searchCard = payload => ({ type: 'SEARCH_CARD', payload});
+
 
 const reducer = (state, action) => {
   switch(action.type) {
-    case 'ADD_COLUMN': 
-      return { ...state, columns: [...state.columns, { ...action.payload, id: shortid() }]};
+    case 'ADD_COLUMN':
+      return { ...state, columns: [...state.columns, action.payload]}; 
     case 'ADD_CARD':
-      return {...state, cards: [...state.cards, {...action.payload, id:shortid() }]};
-    case 'UPDATE_SEARCHSTRING':
-      return {...state, searchString: action.payload}
+      return { ...state, cards: [...state.cards, action.payload]}; 
+      break;
+    case 'SEARCH_CARD':
+      return {...state, search: action.payload}; 
+      break;
     default:
       return state;
   }
