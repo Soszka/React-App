@@ -27,6 +27,7 @@ export const getListById = (lists, listId) => {
 export const addColumn = payload => ({ type: 'ADD_COLUMN', payload });
 export const addCard = payload => ({ type: 'ADD_CARD', payload});
 export const searchCard = payload => ({ type: 'SEARCH_CARD', payload});
+export const addList = payload => ({ type: 'ADD_LIST', payload });
 
 
 const reducer = (state, action) => {
@@ -39,6 +40,9 @@ const reducer = (state, action) => {
     case 'SEARCH_CARD':
       return {...state, search: action.payload}; 
       break;
+    case 'ADD_LIST':
+      return { ...state, lists: [...state.lists, action.payload]};
+      break;  
     default:
       return state;
   }
