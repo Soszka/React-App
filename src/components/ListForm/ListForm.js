@@ -11,7 +11,7 @@ const ListForm = () => {
 
   const [title, setTitle] = useState(''); 
   const [description, setDescription] = useState('');
-  const id = useSelector(state => state.lists.length + 1);
+  const id = String(useSelector(state => state.lists.length + 1));
 
   const handleSubmit = e => {
     e.preventDefault();
